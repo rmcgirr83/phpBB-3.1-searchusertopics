@@ -27,4 +27,3 @@ Go to admin panel -> tab customise -> Manage extensions -> enable Topics by user
 2. Delete all files of the extension from ext/rmcgirr83/searchusertopics
 3. Upload all the new files to the same location
 4. Go to your phpBB-Board > Admin Control Panel > Customise > Manage extensions > Search user topics: enable
-5. Purge the board cache
