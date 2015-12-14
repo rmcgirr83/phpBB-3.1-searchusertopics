@@ -21,7 +21,7 @@ git clone https://github.com/RMcGirr83/phpBB-3.1-searchusertopics.git ext/rmcgir
 ```
 
 ### 2. activate
-Go to admin panel -> tab customise -> Manage extensions -> enable Topics by user
+Go to admin panel -> tab customise -> Manage extensions -> enable Search user topics
 
 ## Update instructions:
 1. Go to your phpBB-Board > Admin Control Panel > Customise > Manage extensions > Search user topics: disable
