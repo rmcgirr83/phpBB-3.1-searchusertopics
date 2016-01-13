@@ -74,7 +74,7 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	* Display zodiac on viewing user profile
+	* Display number of topics on viewing user profile
 	*
 	* @param object $event The event object
 	* @return null
