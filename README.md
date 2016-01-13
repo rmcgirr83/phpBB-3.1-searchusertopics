@@ -3,7 +3,7 @@ Search user topics
 
 phpBB 3.1 Search user topics extension
 
-Extension will display a count of topics with a clikcable link a user has started within a users profile.
+Extension will display a count of topics with a clickable link a user has started within a users profile.
 
 Profile Page
 ![Screenshot](search_user_topics.jpg)
