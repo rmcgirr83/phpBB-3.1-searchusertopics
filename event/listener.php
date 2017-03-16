@@ -87,13 +87,18 @@ class listener implements EventSubscriberInterface
 		$this->user->add_lang_ext('rmcgirr83/searchusertopics', 'common');
 		// get all topics started by the user and make sure they are visible
 		$sql = 'SELECT t.*, p.post_visibility
-			FROM ' . TOPICS_TABLE . ' t, ' . POSTS_TABLE . ' p
-			WHERE t.topic_poster = ' . $user_id . ' AND t.topic_first_post_id = p.post_id';
+			FROM ' . TOPICS_TABLE . ' t
+			LEFT JOIN ' . POSTS_TABLE . ' p ON t.topic_first_post_id = p.post_id
+			WHERE t.topic_poster = ' . (int) $user_id;
 		$result = $this->db->sql_query($sql);
 
 		$topics_num = 0;
 		while ($row = $this->db->sql_fetchrow($result))
 		{
+			if ($row['topic_status'] == ITEM_MOVED)
+			{
+				continue;
+			}
 			if (!$this->auth->acl_get('f_read', $row['forum_id']))
 			{
 				continue;
