@@ -13,6 +13,7 @@ namespace rmcgirr83\searchusertopics\event;
 /**
 * @ignore
 */
+use phpbb\auth\auth;
 use phpbb\config\config;
 use phpbb\db\driver\driver_interface;
 use phpbb\language\language;
