@@ -1,14 +1,14 @@
 Search user topics
 ===============
 
-phpBB 3.1 Search user topics extension
+phpBB Search user topics extension
 
 Extension will display a count of topics with a clickable link a user has started within a users profile.
 
 Profile Page
 ![Screenshot](search_user_topics.jpg)
 
-[![Build Status](https://travis-ci.org/rmcgirr83/phpBB-3.1-searchusertopics.svg?branch=master)](https://travis-ci.org/rmcgirr83/phpBB-3.1-searchusertopics)
+[![Build Status](https://travis-ci.org/rmcgirr83/searchusertopics.svg?branch=master)](https://travis-ci.org/rmcgirr83/searchusertopics)
 
 ## Installation
 
@@ -17,7 +17,7 @@ Clone (or download and move) the repository into the folder ext/rmcgirr83/search
 
 ```
 cd phpBB3
-git clone https://github.com/rmcgirr83/phpBB-3.1-searchusertopics.git ext/rmcgirr83/searchusertopics/
+git clone https://github.com/rmcgirr83/.git ext/rmcgirr83/searchusertopics/
 ```
 
 ### 2. activate

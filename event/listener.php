@@ -13,6 +13,11 @@ namespace rmcgirr83\searchusertopics\event;
 /**
 * @ignore
 */
+use phpbb\config\config;
+use phpbb\db\driver\driver_interface;
+use phpbb\language\language;
+use phpbb\template\template;
+
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -26,14 +31,14 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\config\config */
 	protected $config;
 
-	/** @var \phpbb\db\driver\driver */
+	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
+
+	/** @var \phpbb\language\language */
+	protected $language;
 
 	/** @var \phpbb\template\template */
 	protected $template;
-
-	/** @var \phpbb\user */
-	protected $user;
 
 	/** @var string phpBB root path */
 	protected $phpbb_root_path;
@@ -42,19 +47,19 @@ class listener implements EventSubscriberInterface
 	protected $php_ext;
 
 	public function __construct(
-		\phpbb\auth\auth $auth,
-		\phpbb\config\config $config,
-		\phpbb\db\driver\driver_interface $db,
-		\phpbb\template\template $template,
-		\phpbb\user $user,
+		auth $auth,
+		config $config,
+		driver_interface $db,
+		language $language,
+		template $template,
 		$phpbb_root_path,
 		$php_ext)
 	{
 		$this->auth = $auth;
 		$this->config = $config;
 		$this->db = $db;
+		$this->language = $language;
 		$this->template = $template;
-		$this->user = $user;
 		$this->root_path = $phpbb_root_path;
 		$this->php_ext = $php_ext;
 	}
@@ -69,8 +74,27 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
+			'core.acp_extensions_run_action_after'	=>	'acp_extensions_run_action_after',
 			'core.memberlist_view_profile'				=> 'memberlist_view_profile',
 		);
+	}
+
+	/* Display additional metdate in extension details
+	*
+	* @param $event			event object
+	* @param return null
+	* @access public
+	*/
+	public function acp_extensions_run_action_after($event)
+	{
+		if ($event['ext_name'] == 'rmcgirr83/searchusertopics' && $event['action'] == 'details')
+		{
+			$this->language->add_lang('common', $event['ext_name']);
+			$this->template->assign_vars([
+				'L_BUY_ME_A_BEER_EXPLAIN'	=> $this->language->lang('BUY ME A BEER_EXPLAIN', '<a href="' . $this->language->lang('BUY_ME_A_BEER_URL') . '" target="_blank" rel=”noreferrer noopener”>', '</a>'),
+				'S_BUY_ME_A_BEER_SUT' => true,
+			]);
+		}
 	}
 
 	/**
@@ -84,7 +108,8 @@ class listener implements EventSubscriberInterface
 	{
 		$user_id = $event['member']['user_id'];
 		$reg_date = $event['member']['user_regdate'];
-		$this->user->add_lang_ext('rmcgirr83/searchusertopics', 'common');
+		$this->language->add_lang('common', 'rmcgirr83/searchusertopics');
+
 		// get all topics started by the user and make sure they are visible
 		$sql = 'SELECT t.*, p.post_visibility
 			FROM ' . TOPICS_TABLE . ' t
@@ -118,10 +143,10 @@ class listener implements EventSubscriberInterface
 			$topics_per_day = $topics_num / $users_days;
 			$topics_percent = ($this->config['num_topics']) ? min(100, ($topics_num / $this->config['num_topics']) * 100) : 0;
 			$this->template->assign_vars(array(
-				'TOPICS'	=> $topics_num,
-				'L_TOTAL_TOPICS'	=> $this->user->lang('TOTAL_TOPICS', $topics_num),
-				'TOPICS_PER_DAY'	=> $this->user->lang('TOPICS_PER_DAY', $topics_per_day),
-				'TOPICS_PERCENT'	=> $this->user->lang('TOPICS_PERCENT', $topics_percent),
+				'TOPICS'			=> $topics_num,
+				'L_TOTAL_TOPICS'	=> $this->language->lang('TOTAL_TOPICS', $topics_num),
+				'TOPICS_PER_DAY'	=> $this->language->lang('TOPICS_PER_DAY', $topics_per_day),
+				'TOPICS_PERCENT'	=> $this->language->lang('TOPICS_PERCENT', $topics_percent),
 				'U_SEARCH_TOPICS'	=> ($this->auth->acl_get('u_search')) ? append_sid("{$this->root_path}search.$this->php_ext", "author_id=$user_id&amp;sr=topics&amp;sf=firstpost") : '',
 			));
 		}
