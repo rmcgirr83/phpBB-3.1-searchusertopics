@@ -42,7 +42,7 @@ class listener implements EventSubscriberInterface
 	protected $template;
 
 	/** @var string phpBB root path */
-	protected $phpbb_root_path;
+	protected $root_path;
 
 	/** @var string phpEx */
 	protected $php_ext;
@@ -53,7 +53,7 @@ class listener implements EventSubscriberInterface
 		driver_interface $db,
 		language $language,
 		template $template,
-		$phpbb_root_path,
+		$root_path,
 		$php_ext)
 	{
 		$this->auth = $auth;
@@ -61,7 +61,7 @@ class listener implements EventSubscriberInterface
 		$this->db = $db;
 		$this->language = $language;
 		$this->template = $template;
-		$this->root_path = $phpbb_root_path;
+		$this->root_path = $root_path;
 		$this->php_ext = $php_ext;
 	}
 
@@ -91,10 +91,7 @@ class listener implements EventSubscriberInterface
 		if ($event['ext_name'] == 'rmcgirr83/searchusertopics' && $event['action'] == 'details')
 		{
 			$this->language->add_lang('common', $event['ext_name']);
-			$this->template->assign_vars([
-				'L_BUY_ME_A_BEER_EXPLAIN'	=> $this->language->lang('BUY ME A BEER_EXPLAIN', '<a href="' . $this->language->lang('BUY_ME_A_BEER_URL') . '" target="_blank" rel=”noreferrer noopener”>', '</a>'),
-				'S_BUY_ME_A_BEER_SUT' => true,
-			]);
+			$this->template->assign_var('S_BUY_ME_A_BEER_SUT', true);
 		}
 	}
 
