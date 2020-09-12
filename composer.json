@@ -2,8 +2,8 @@
     "name": "rmcgirr83/searchusertopics",
     "type": "phpbb-extension",
     "description": "This Extension displays number of topics started by a user when visiting that users profile",
-    "version": "1.0.4",
-    "time": "2020-08-25",
+    "version": "1.0.5",
+    "time": "2020-09-12",
     "keywords": [
         "phpbb",
         "extension",
