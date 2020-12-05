@@ -8,8 +8,6 @@ Extension will display a count of topics with a clickable link a user has starte
 Profile Page
 ![Screenshot](search_user_topics.jpg)
 
-[![Build Status](https://travis-ci.com/rmcgirr83/searchusertopics.svg?branch=master)](https://travis-ci.com/rmcgirr83/searchusertopics)
-
 ## Installation
 
 ### 1. clone
