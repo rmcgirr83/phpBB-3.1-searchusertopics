@@ -1,6 +1,8 @@
 Search user topics
 ===============
 
+[![Build Status](https://github.com/rmcgirr83/searchusertopics/workflows/Tests/badge.svg)](https://github.com/rmcgirr83/searchusertopics/actions)
+
 phpBB Search user topics extension
 
 Extension will display a count of topics with a clickable link a user has started within a users profile.

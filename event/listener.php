@@ -41,7 +41,7 @@ class listener implements EventSubscriberInterface
 
 	/** @var template */
 	protected $template;
-	
+
 	/** @var user */
 	protected $user;
 
