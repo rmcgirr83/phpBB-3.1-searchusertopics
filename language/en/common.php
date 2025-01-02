@@ -36,6 +36,7 @@ $lang = array_merge($lang, [
 	'TOPICS_PER_DAY'		=> '%.2f topics per day',
 	'TOPICS_PERCENT'		=> '%.2f%% of all topics',
 	'SUT_TOTAL_TOPICS'		=> 'Total topics',
+	'SEARCH_TOPICS'			=> 'Your topics',
 	//Donation
 	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
 	'PAYPAL_ALT'                => 'Donate using PayPal',

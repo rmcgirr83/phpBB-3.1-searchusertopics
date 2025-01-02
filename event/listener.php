@@ -18,6 +18,7 @@ use phpbb\config\config;
 use phpbb\db\driver\driver_interface;
 use phpbb\language\language;
 use phpbb\template\template;
+use phpbb\user;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -26,20 +27,23 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 */
 class listener implements EventSubscriberInterface
 {
-	/** @var \phpbb\auth\auth */
+	/** @var auth */
 	protected $auth;
 
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/** @var \phpbb\db\driver\driver_interface */
+	/** @var driver_interface */
 	protected $db;
 
-	/** @var \phpbb\language\language */
+	/** @var language */
 	protected $language;
 
-	/** @var \phpbb\template\template */
+	/** @var template */
 	protected $template;
+	
+	/** @var user */
+	protected $user;
 
 	/** @var string phpBB root path */
 	protected $root_path;
@@ -53,6 +57,7 @@ class listener implements EventSubscriberInterface
 		driver_interface $db,
 		language $language,
 		template $template,
+		user $user,
 		$root_path,
 		$php_ext)
 	{
@@ -61,6 +66,7 @@ class listener implements EventSubscriberInterface
 		$this->db = $db;
 		$this->language = $language;
 		$this->template = $template;
+		$this->user = $user;
 		$this->root_path = $root_path;
 		$this->php_ext = $php_ext;
 	}
@@ -77,7 +83,24 @@ class listener implements EventSubscriberInterface
 		return array(
 			'core.acp_extensions_run_action_after'	=>	'acp_extensions_run_action_after',
 			'core.memberlist_view_profile'				=> 'memberlist_view_profile',
+			'core.page_header_after'	=> 'page_header_after',
 		);
+	}
+
+	/**
+	* Display topics search for the user in quick links
+	*
+	* @param object $event The event object
+	* @return null
+	* @access public
+	*/
+	public function page_header_after($event)
+	{
+		$this->language->add_lang('common', 'rmcgirr83/searchusertopics');
+		$user_id = $this->user->data['user_id'];
+		$this->template->assign_vars(array(
+			'U_SEARCH_TOPICS'	=> ($this->auth->acl_get('u_search')) ? append_sid("{$this->root_path}search.$this->php_ext", "author_id=$user_id&amp;sr=topics&amp;sf=firstpost") : '',
+		));
 	}
 
 	/* Display additional metdate in extension details
