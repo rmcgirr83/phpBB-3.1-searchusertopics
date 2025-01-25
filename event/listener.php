@@ -168,7 +168,7 @@ class listener implements EventSubscriberInterface
 				'L_TOTAL_TOPICS'	=> $this->language->lang('TOTAL_TOPICS', $topics_num),
 				'TOPICS_PER_DAY'	=> $this->language->lang('TOPICS_PER_DAY', $topics_per_day),
 				'TOPICS_PERCENT'	=> $this->language->lang('TOPICS_PERCENT', $topics_percent),
-				'U_SEARCH_TOPICS'	=> ($this->auth->acl_get('u_search')) ? append_sid("{$this->root_path}search.$this->php_ext", "author_id=$user_id&amp;sr=topics&amp;sf=firstpost") : '',
+				'U_SEARCH_USER_TOPICS'	=> ($this->auth->acl_get('u_search')) ? append_sid("{$this->root_path}search.$this->php_ext", "author_id=$user_id&amp;sr=topics&amp;sf=firstpost") : '',
 			));
 		}
 	}
